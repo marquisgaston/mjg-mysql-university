@@ -1,0 +1,291 @@
+USE mjg_university_schema;
+
+-- to fill student users, etc
+
+BEGIN;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS students_data$$
+CREATE PROCEDURE students_data()
+BEGIN
+	DECLARE i INT default 1;
+    WHILE i <= 13 DO
+		INSERT INTO courses (course_professor_id)
+        VALUES (FLOOR(RAND()*professor_id.length));
+        SET i = i + 1;
+	END WHILE;
+END$$;
+DELIMITER ;
+CALL students_data();
+DROP PROCEDURE students_data;
+
+-- 
+
+SET SQL_SAFE_UPDATES = 0;
+BEGIN;
+UPDATE students
+SET student_email = CONCAT("Student", FLOOR(RAND()*1000000), "@mjg.edu");
+
+
+INSERT INTO student (student_name)
+VALUES (CONCAT("Student ", i));
+SET i = i + 1;
+
+BEGIN;
+INSERT INTO professors (professor_name) 
+VALUES
+('facilis'),
+('vel'),
+('totam'),
+('illum'),
+('officiis'),
+('sed'),
+('aspernatur'),
+('molestiae'),
+('in'),
+('fugiat'); 
+
+
+
+BEGIN;
+INSERT INTO courses (course_subject, course_professor_id) 
+VALUES ('RUBY ON RAILS', FLOOR(RAND()*10));
+
+BEGIN;
+INSERT INTO grades (grades_grade,grades_student_id, grades_course_id) 
+VALUES ((RAND()*100), (FLOOR(RAND()*(301-202+1))+202), (FLOOR(RAND()*13)));
+
+
+
+
+BEGIN;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS students_data$$
+CREATE PROCEDURE students_data()
+BEGIN
+	DECLARE i INT default 202; 
+    DECLARE j INT default 1;
+    WHILE i <= 301 DO
+		WHILE j <= 5 DO
+			INSERT INTO grades (grades_grade,grades_student_id,grades_course_id)
+            VALUES (RAND()*100, i, j);
+		SET j = j + 1;
+        END WHILE;
+		
+	SET i = i + 1;
+	END WHILE;
+END$$;
+DELIMITER ;
+CALL students_data();
+DROP PROCEDURE students_data;
+
+SELECT * 
+FROM grades;
+
+
+ROLLBACK;
+
+
+BEGIN;
+UPDATE grades
+SET grades_professor_id = 3
+WHERE grades_course_id =  5;
+
+
+SELECT grades_id,student_name, grades_grade, course_subject,professor_name
+FROM students s
+LEFT JOIN grades g
+ON s.student_id = g.grades_student_id
+LEFT JOIN courses c
+ON g.grades_course_id = c.course_id
+LEFT JOIN professors p
+ON g.grades_professor_id = p.professor_id;
+
+INSERT INTO courses 
+VALUES (3, 'UNITY GAMES', 5);
+
+
+
+BEGIN;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS students_data$$
+CREATE PROCEDURE students_data()
+BEGIN
+	DECLARE i INT default 1;
+    WHILE i <= 5 DO
+		INSERT INTO `grades` (grades_grade,grades_student_id,grades_course_id)
+		VALUES 
+			('87','213',i),
+			('86','284',i),
+			('92','288',i),
+			('76','245',i),
+			('78','240',i),
+			('77','217',i),
+			('83','281',i),
+			('89','254',i),
+			('97','259',i),
+			('84','262',i),
+			('85','246',i),
+			('94','282',i),
+			('84','222',i),
+			('79','254',i),
+			('87','206',i),
+			('90','289',i),
+			('78','204',i),
+			('98','287',i),
+			('88','231',i),
+			('90','260',i),
+			('93','207',i),
+			('86','218',i),
+			('81','215',i),
+			('88','272',i),
+			('80','272',i),
+			('86','290',i),
+			('98','281',i),
+			('86','256',i),
+			('89','286',i),
+			('98','240',i),
+			('97','266',i),
+			('94','228',i),
+			('86','266',i),
+			('95','287',i),
+			('94','282',i),
+			('91','249',i),
+			('98','255',i),
+			('99','234',i),
+			('98','225',i),
+			('91','301',i),
+			('86','246',i),
+			('89','247',i),
+			('85','288',i),
+			('80','258',i),
+			('81','265',i),
+			('97','220',i),
+			('90','218',i),
+			('95','239',i),
+			('96','243',i),
+			('96','224',i),
+			('91','215',i),
+			('78','231',i),
+			('93','205',i),
+			('79','252',i),
+			('85','251',i),
+			('93','236',i),
+			('92','215',i),
+			('84','269',i),
+			('96','298',i),
+			('83','223',i),
+			('79','281',i),
+			('93','216',i),
+			('84','299',i),
+			('90','235',i),
+			('77','242',i),
+			('83','267',i),
+			('80','275',i),
+			('98','217',i),
+			('88','288',i),
+			('77','225',i),
+			('82','250',i),
+			('77','213',i),
+			('82','300',i),
+			('88','258',i),
+			('80','289',i),
+			('91','217',i),
+			('85','244',i),
+			('81','261',i),
+			('76','221',i),
+			('94','241',i),
+			('87','288',i),
+			('89','298',i),
+			('77','292',i),
+			('85','259',i),
+			('88','255',i),
+			('78','298',i),
+			('92','252',i),
+			('82','232',i),
+			('83','290',i),
+			('94','267',i),
+			('90','269',i),
+			('83','256',i),
+			('95','237',i),
+			('92','203',i),
+			('90','223',i),
+			('91','296',i),
+			('94','225',i),
+			('88','236',i),
+			('94','263',i);
+		
+	SET i = i + 1;
+	END WHILE;
+END$$;
+DELIMITER ;
+CALL students_data();
+DROP PROCEDURE students_data;
+
+
+
+		
+-- START OF QUERY SCRIPTS
+-- //////////////////////////////////////////////////////////////////////////////////////
+-- //////////////////////////////////////////////////////////////////////////////////////
+-- //////////////////////////////////////////////////////////////////////////////////////
+-- //////////////////////////////////////////////////////////////////////////////////////
+
+
+SELECT grades_id,student_name, grades_grade, course_subject,professor_name
+FROM students s
+LEFT JOIN grades g
+ON s.student_id = g.grades_student_id
+LEFT JOIN courses c
+ON g.grades_course_id = c.course_id
+LEFT JOIN professors p
+ON g.grades_professor_id = p.professor_id;
+
+-- AVERAGE PER PROFESSOR
+
+SELECT AVG(grades_grade)
+FROM grades
+WHERE grades_professor_id = 1;
+
+-- TOP GRADE PER STUDENT 
+
+SELECT MAX(grades_grade)
+FROM grades 
+WHERE grades_student_id = 207;
+
+SELECT *
+FROM grades
+WHERE grades_student_id = 207;
+
+-- GROUP STUDENTS BY COURSE ???? TOD DO
+
+SELECT grades_student_id,grades_course_id, student_name, course_subject
+FROM grades g
+JOIN students s 
+ON s.student_id = g.grades_student_id
+JOIN courses c
+ON g.grades_course_id = c.course_id
+ORDER BY g.grades_course_id DESC;
+
+-- Create a summary report of courses and their average grades, sorted by the most challenging course (course with the lowest average grade) to the easiest course
+SELECT course_subject,AVG(grades_grade) 
+FROM grades g
+JOIN courses c
+ON g.grades_course_id = c.course_id
+GROUP BY course_subject
+ORDER BY AVG(grades_grade) ASC;
+
+-- Finding which student and professor have the most courses in common
+
+SELECT student_name, professor_name, COUNT(*) AS clases_in_common
+FROM students s
+JOIN grades g
+ON  s.student_id = g.grades_student_id
+JOIN courses c
+ON g.grades_course_id = c.course_id
+JOIN professors p
+ON g.grades_professor_id = p.professor_id
+GROUP BY p.professor_name, s.student_name
+ORDER BY clases_in_common DESC;
+
+
+
